@@ -5,7 +5,7 @@ Support files for the Humanoids course, LIPM Walking in a Physics Simulation.
 ## Contents
 
 - `lipm_point_mass_walk.py`: physical point-mass Linear Inverted Pendulum Model experiment.
-- `lipm_ik_toy_biped_walk.py`: multibody toy-biped walking experiment using LIPM foot targets, inverse kinematics, joint motors, and PyBullet contact physics.
+- `lipm_toy_biped_walk.py`: multibody toy-biped walking experiment using LIPM foot targets, inverse kinematics, joint motors, and PyBullet contact physics.
 - `toy_biped_physics.urdf`: physical toy-biped model used by the multibody simulation.
 
 ## Requirements

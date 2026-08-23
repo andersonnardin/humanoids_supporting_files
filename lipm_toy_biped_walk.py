@@ -183,8 +183,8 @@ def ankle_target(foot_center: np.ndarray, settings: WalkingSettings) -> np.ndarr
     )
 
 
-def hide_robot(robot: int) -> None:
-    """Make the fixed-base IK copy invisible and non-colliding."""
+def configure_reference_model(robot: int) -> None:
+    """Keep the fixed-base kinematic reference out of the physical scene."""
     for link in range(-1, p.getNumJoints(robot)):
         p.changeVisualShape(robot, link, rgbaColor=(1.0, 1.0, 1.0, 0.0))
         p.setCollisionFilterGroupMask(robot, link, 0, 0)
@@ -203,31 +203,31 @@ def disable_default_motors(robot: int) -> None:
 
 
 def solve_ik_leg(
-    ik_robot: int,
-    ik_indices: dict[str, int],
+    reference_model: int,
+    reference_indices: dict[str, int],
     side: str,
     target: np.ndarray,
 ) -> np.ndarray:
-    """Solve one leg of the hidden robot for a level-foot world pose."""
-    end_effector = ik_indices[f"{side}LEG_J5"]
-    joint_count = p.getNumJoints(ik_robot)
-    lower_limits = [p.getJointInfo(ik_robot, joint)[8] for joint in range(joint_count)]
-    upper_limits = [p.getJointInfo(ik_robot, joint)[9] for joint in range(joint_count)]
+    """Solve one leg of the reference model for a level-foot pose."""
+    end_effector = reference_indices[f"{side}LEG_J5"]
+    joint_count = p.getNumJoints(reference_model)
+    lower_limits = [p.getJointInfo(reference_model, joint)[8] for joint in range(joint_count)]
+    upper_limits = [p.getJointInfo(reference_model, joint)[9] for joint in range(joint_count)]
     joint_ranges = [upper - lower for lower, upper in zip(lower_limits, upper_limits)]
-    rest_poses = [p.getJointState(ik_robot, joint)[0] for joint in range(joint_count)]
+    rest_poses = [p.getJointState(reference_model, joint)[0] for joint in range(joint_count)]
 
     # A perfectly straight leg is an IK singularity. Seed a human-like bent
     # knee only when this leg has not yet acquired a valid previous solution.
-    knee = ik_indices[f"{side}LEG_J3"]
+    knee = reference_indices[f"{side}LEG_J3"]
     if abs(rest_poses[knee]) < 0.10:
-        rest_poses[ik_indices[f"{side}LEG_J2"]] = -0.45
+        rest_poses[reference_indices[f"{side}LEG_J2"]] = -0.45
         rest_poses[knee] = 0.90
-        rest_poses[ik_indices[f"{side}LEG_J4"]] = -0.45
-        for joint in leg_indices(ik_indices, side):
-            p.resetJointState(ik_robot, joint, rest_poses[joint])
+        rest_poses[reference_indices[f"{side}LEG_J4"]] = -0.45
+        for joint in leg_indices(reference_indices, side):
+            p.resetJointState(reference_model, joint, rest_poses[joint])
 
     solution = p.calculateInverseKinematics(
-        ik_robot,
+        reference_model,
         end_effector,
         target.tolist(),
         targetOrientation=p.getQuaternionFromEuler((0.0, 0.0, 0.0)),
@@ -238,27 +238,27 @@ def solve_ik_leg(
         maxNumIterations=300,
         residualThreshold=1.0e-6,
     )
-    joints = leg_indices(ik_indices, side)
+    joints = leg_indices(reference_indices, side)
     targets = np.array([solution[joint] for joint in joints])
     for joint, target_position in zip(joints, targets):
-        p.resetJointState(ik_robot, joint, float(target_position))
+        p.resetJointState(reference_model, joint, float(target_position))
     return targets
 
 
 def desired_leg_postures(
-    ik_robot: int,
-    ik_indices: dict[str, int],
+    reference_model: int,
+    reference_indices: dict[str, int],
     pelvis_target: np.ndarray,
     right_ankle_target: np.ndarray,
     left_ankle_target: np.ndarray,
 ) -> dict[str, np.ndarray]:
     """Map desired pelvis and feet into right/left leg joint targets."""
     p.resetBasePositionAndOrientation(
-        ik_robot, pelvis_target.tolist(), (0.0, 0.0, 0.0, 1.0)
+        reference_model, pelvis_target.tolist(), (0.0, 0.0, 0.0, 1.0)
     )
     return {
-        "R": solve_ik_leg(ik_robot, ik_indices, "R", right_ankle_target),
-        "L": solve_ik_leg(ik_robot, ik_indices, "L", left_ankle_target),
+        "R": solve_ik_leg(reference_model, reference_indices, "R", right_ankle_target),
+        "L": solve_ik_leg(reference_model, reference_indices, "L", left_ankle_target),
     }
 
 
@@ -405,10 +405,10 @@ def run_walk(
         basePosition=(supports[0, 0], supports[0, 1], settings.pelvis_height),
         useFixedBase=False,
     )
-    ik_robot = p.loadURDF(str(model.urdf_path), useFixedBase=True)
-    hide_robot(ik_robot)
+    reference_model = p.loadURDF(str(model.urdf_path), useFixedBase=True)
+    configure_reference_model(reference_model)
     indices = joint_indices(robot)
-    ik_indices = joint_indices(ik_robot)
+    reference_indices = joint_indices(reference_model)
 
     for link in range(-1, p.getNumJoints(robot)):
         p.changeDynamics(
@@ -432,8 +432,8 @@ def run_walk(
     # the LIPM-to-multibody conversion described in the walking method.
     initial_pelvis_guess = initial_com_target.copy()
     initial_postures = desired_leg_postures(
-        ik_robot,
-        ik_indices,
+        reference_model,
+        reference_indices,
         initial_pelvis_guess,
         initial_right,
         initial_left,
@@ -442,8 +442,8 @@ def run_walk(
     nominal_com_offset = center_of_mass(robot) - initial_pelvis_guess
     initial_pelvis = initial_com_target - nominal_com_offset
     initial_postures = desired_leg_postures(
-        ik_robot,
-        ik_indices,
+        reference_model,
+        reference_indices,
         initial_pelvis,
         initial_right,
         initial_left,
@@ -488,8 +488,8 @@ def run_walk(
                 right_target = support_ankle if support_side == "R" else swing_ankle
                 left_target = support_ankle if support_side == "L" else swing_ankle
                 desired_postures = desired_leg_postures(
-                    ik_robot,
-                    ik_indices,
+                    reference_model,
+                    reference_indices,
                     pelvis_target,
                     right_target,
                     left_target,
