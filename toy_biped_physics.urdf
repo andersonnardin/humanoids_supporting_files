@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<robot name="toy_biped_physics">
+  <link name="BODY">
+    <inertial>
+      <origin xyz="0 0 0.30" />
+      <mass value="2.0" />
+      <inertia ixx="0.09" iyy="0.07" izz="0.05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.30" rpy="0 0 0" />
+      <geometry>
+        <box size="0.10 0.30 0.50" />
+      </geometry>
+      <material name="body_blue">
+        <color rgba="0.20 0.45 0.85 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.30" rpy="0 0 0" />
+      <geometry>
+        <box size="0.10 0.30 0.50" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="RLEG_J0">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="RLEG_J0" type="revolute">
+    <parent link="BODY" />
+    <child link="RLEG_J0" />
+    <origin xyz="0 -0.10 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="RLEG_J1">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="RLEG_J1" type="revolute">
+    <parent link="RLEG_J0" />
+    <child link="RLEG_J1" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="RLEG_J2">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.012" length="0.30" />
+      </geometry>
+      <material name="link_blue">
+        <color rgba="0.20 0.45 0.85 1.0" />
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.012" length="0.30" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="RLEG_J2" type="revolute">
+    <parent link="RLEG_J1" />
+    <child link="RLEG_J2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="RLEG_J3">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.012" length="0.30" />
+      </geometry>
+      <material name="link_blue">
+        <color rgba="0.20 0.45 0.85 1.0" />
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.012" length="0.30" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="RLEG_J3" type="revolute">
+    <parent link="RLEG_J2" />
+    <child link="RLEG_J3" />
+    <origin xyz="0 0 -0.30" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="3.1416" effort="20" velocity="2" />
+  </joint>
+  <link name="RLEG_J4">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="RLEG_J4" type="revolute">
+    <parent link="RLEG_J3" />
+    <child link="RLEG_J4" />
+    <origin xyz="0 0 -0.30" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="RLEG_J5">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.03" />
+      <inertia ixx="0.0001" iyy="0.0002" izz="0.0002" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0.05 0 -0.04" rpy="0 0 0" />
+      <geometry>
+        <box size="0.20 0.10 0.02" />
+      </geometry>
+      <material name="foot_blue">
+        <color rgba="0.32 0.62 0.90 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.05 0 -0.04" rpy="0 0 0" />
+      <geometry>
+        <box size="0.20 0.10 0.02" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="RLEG_J5" type="revolute">
+    <parent link="RLEG_J4" />
+    <child link="RLEG_J5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="LLEG_J0">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LLEG_J0" type="revolute">
+    <parent link="BODY" />
+    <child link="LLEG_J0" />
+    <origin xyz="0 0.10 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="LLEG_J1">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LLEG_J1" type="revolute">
+    <parent link="LLEG_J0" />
+    <child link="LLEG_J1" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="LLEG_J2">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.012" length="0.30" />
+      </geometry>
+      <material name="link_blue">
+        <color rgba="0.20 0.45 0.85 1.0" />
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.012" length="0.30" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LLEG_J2" type="revolute">
+    <parent link="LLEG_J1" />
+    <child link="LLEG_J2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="LLEG_J3">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.012" length="0.30" />
+      </geometry>
+      <material name="link_blue">
+        <color rgba="0.20 0.45 0.85 1.0" />
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.012" length="0.30" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LLEG_J3" type="revolute">
+    <parent link="LLEG_J2" />
+    <child link="LLEG_J3" />
+    <origin xyz="0 0 -0.30" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="3.1416" effort="20" velocity="2" />
+  </joint>
+  <link name="LLEG_J4">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LLEG_J4" type="revolute">
+    <parent link="LLEG_J3" />
+    <child link="LLEG_J4" />
+    <origin xyz="0 0 -0.30" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+  <link name="LLEG_J5">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.03" />
+      <inertia ixx="0.0001" iyy="0.0002" izz="0.0002" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+      <material name="joint_blue">
+        <color rgba="0.10 0.30 0.70 1.0" />
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0.05 0 -0.04" rpy="0 0 0" />
+      <geometry>
+        <box size="0.20 0.10 0.02" />
+      </geometry>
+      <material name="foot_blue">
+        <color rgba="0.32 0.62 0.90 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.080" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.05 0 -0.04" rpy="0 0 0" />
+      <geometry>
+        <box size="0.20 0.10 0.02" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LLEG_J5" type="revolute">
+    <parent link="LLEG_J4" />
+    <child link="LLEG_J5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.0472" upper="1.0472" effort="20" velocity="2" />
+  </joint>
+</robot>
