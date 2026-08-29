@@ -1,8 +1,6 @@
-# Humanoid Walking Support Files
+# Humanoid Walking Simulation Files
 
-Support files for the Humanoid Walking course practical simulations. The
-examples connect simplified LIPM and cart-table walking plans to physical
-PyBullet experiments.
+Support files for the Humanoid Masterclass. The examples connect LIPM and Cart-Table walking plans to PyBullet simulations.
 
 ## Contents
 
@@ -10,7 +8,7 @@ PyBullet experiments.
 - `lipm_toy_biped_walk.py`: multibody toy-biped walking experiment using LIPM foot targets, inverse kinematics, joint motors, and PyBullet contact physics.
 - `cart_table_toy_biped_walk.py`: offline cart-table walking experiment that defines a desired ZMP sequence, solves the complete CoM trajectory, and commands the multibody toy biped through inverse kinematics and joint motors.
 - `lipm_rpo_walk.py`: LIPM walking experiment adapted to the RoboParty RPO multibody humanoid.
-- `lipm_rpo_stabilized_walk.py`: the same RPO experiment with the Unit 1.9 sagittal support-ankle torque stabilizer.
+- `lipm_rpo_stabilized_walk.py`: the same RPO experiment with a sagittal support-ankle torque stabilizer.
 
 - `toy_biped_physics.urdf`: physical toy-biped model used by both multibody simulations.
 
