@@ -123,12 +123,13 @@ def swing_position(start: np.ndarray, finish: np.ndarray, fraction: float, setti
     return position
 
 
-def add_desired_foot_geometry(desired_feet: np.ndarray, settings: WalkingSettings) -> None:
+def add_plan_debug_geometry(desired_feet: np.ndarray, supports: np.ndarray, settings: WalkingSettings) -> None:
     half_length, half_width = settings.foot_length / 2.0, settings.foot_width / 2.0
-    for foot in desired_feet:
-        corners = [(foot[0] - half_length, foot[1] - half_width, .002), (foot[0] + half_length, foot[1] - half_width, .002), (foot[0] + half_length, foot[1] + half_width, .002), (foot[0] - half_length, foot[1] + half_width, .002)]
-        for first, second in zip(corners, corners[1:] + corners[:1]):
-            p.addUserDebugLine(first, second, (0.85, 0.15, 0.15), lineWidth=1.4)
+    for feet, color in ((desired_feet, (0.85, 0.15, 0.15)), (supports, (0.1, 0.1, 0.1))):
+        for foot in feet:
+            corners = [(foot[0] - half_length, foot[1] - half_width, .002), (foot[0] + half_length, foot[1] - half_width, .002), (foot[0] + half_length, foot[1] + half_width, .002), (foot[0] - half_length, foot[1] + half_width, .002)]
+            for first, second in zip(corners, corners[1:] + corners[:1]):
+                p.addUserDebugLine(first, second, color, lineWidth=1.4)
 
 
 def total_mass(robot: int) -> float:
@@ -480,7 +481,7 @@ def run_walk(
 
         if gui:
             p.removeAllUserDebugItems()
-            add_desired_foot_geometry(desired_feet, settings)
+            add_plan_debug_geometry(desired_feet, supports, settings)
             status_id = add_status(-1, 0.0, 0.0, False)
         else:
             status_id = -1
