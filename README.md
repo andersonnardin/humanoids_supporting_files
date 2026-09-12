@@ -1,9 +1,15 @@
-# Humanoid Walking Simulation Files
+# Humanoid Robotics Supporting Files
 
-Support files for the Humanoid Masterclass. The examples connect LIPM and Cart-Table walking plans to PyBullet simulations.
+Support files for the Humanoid Masterclass. The examples cover graphical
+whole-body motion design as well as LIPM and Cart-Table walking simulations.
 
 ## Contents
 
+- `graphical_motion_designer.py`: dual-view pin/drag editor for designing rough
+  whole-body motion as a sequence of stick-figure keyframes.
+- `graphical_motion_player_rpo.py`: maps the graphical keyframes to the
+  RoboParty RPO, solves approximate whole-body postures, and interpolates them
+  in PyBullet.
 - `lipm_point_mass_walk.py`: physical point-mass Linear Inverted Pendulum Model experiment.
 - `lipm_toy_biped_walk.py`: multibody toy-biped walking experiment using LIPM foot targets, inverse kinematics, joint motors, and PyBullet contact physics.
 - `cart_table_toy_biped_walk.py`: offline cart-table walking experiment that defines a desired ZMP sequence, solves the complete CoM trajectory, and commands the multibody toy biped through inverse kinematics and joint motors.
@@ -23,5 +29,8 @@ python -m pip install numpy pybullet
 Run any Python script from this folder. The two toy-biped scripts require
 `toy_biped_physics.urdf` to remain in the same directory.
 
-The RPO scripts require the public `rpo_description` repository beside them,
-with `rpo_description/urdf/rpo.urdf` and its `meshes/` directory available.
+The graphical motion designer uses Tkinter, which is included with many Python
+installations and may otherwise be installed through the operating system's
+Python Tk package. RPO scripts require the original public `rpo_description`
+repository beside them, with `rpo_description/urdf/rpo.urdf` and its `meshes/`
+directory available.
