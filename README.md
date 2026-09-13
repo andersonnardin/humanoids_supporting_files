@@ -14,7 +14,7 @@ LIPM and Cart-Table walking simulations.
 - `g1_fall_impact.py`: physical PyBullet experiment that
   compares a Chapter 5.5-inspired backward-fall routine with manually
   disabling that controller.
-- `auto_balanced_g1_rrt_reach.py`: Chapter 5.3-inspired G1 experiment that
+- `auto_balancer_g1_rrt_reach.py`: G1 experiment that
   turns a collision-free RRT reach into gravity-tested playback with a low
   double-support squat and a compact CoM-feedback Auto-Balancer.
 - `lipm_point_mass_walk.py`: physical point-mass Linear Inverted Pendulum Model experiment.
