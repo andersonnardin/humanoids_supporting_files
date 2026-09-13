@@ -30,7 +30,7 @@ HANDLE_NAMES = (
     "left foot",
     "right foot",
 )
-DEFAULT_PINS = ("left foot", "right foot", "left hand")
+DEFAULT_PINS = ("left foot", "right foot")
 
 COLORS = {
     "torso": "#9333ea",
@@ -500,7 +500,14 @@ class SingleWindowPinDragApplication:
         try:
             data = json.loads(KEYFRAME_FILE.read_text(encoding="utf-8"))
             keyframes = data.get("keyframes", [])
-            return keyframes if isinstance(keyframes, list) else []
+            if not isinstance(keyframes, list):
+                return []
+            return [
+                {"index": number, "pose": keyframe["pose"]}
+                for number, keyframe in enumerate(keyframes)
+                if isinstance(keyframe, dict)
+                and isinstance(keyframe.get("pose"), dict)
+            ]
         except (OSError, json.JSONDecodeError):
             return []
 
@@ -518,11 +525,6 @@ class SingleWindowPinDragApplication:
                 "pose": {
                     name: [float(value) for value in point]
                     for name, point in self.model.pose.items()
-                },
-                "pins": sorted(self.model.pins),
-                "pin_targets": {
-                    name: [float(value) for value in point]
-                    for name, point in self.model.pins.items()
                 },
             }
         )
