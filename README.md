@@ -1,8 +1,8 @@
 # Humanoid Robotics Supporting Files
 
 Support files for the Humanoid Masterclass. The examples cover graphical
-whole-body motion design, fall-impact reduction, and LIPM and Cart-Table
-walking simulations.
+whole-body motion design, dynamic stabilization, fall-impact reduction, and
+LIPM and Cart-Table walking simulations.
 
 ## Contents
 
@@ -14,6 +14,9 @@ walking simulations.
 - `g1_fall_impact.py`: physical PyBullet experiment that
   compares a Chapter 5.5-inspired backward-fall routine with manually
   disabling that controller.
+- `auto_balanced_g1_rrt_reach.py`: Chapter 5.3-inspired G1 experiment that
+  turns a collision-free RRT reach into gravity-tested playback with a low
+  double-support squat and a compact CoM-feedback Auto-Balancer.
 - `lipm_point_mass_walk.py`: physical point-mass Linear Inverted Pendulum Model experiment.
 - `lipm_toy_biped_walk.py`: multibody toy-biped walking experiment using LIPM foot targets, inverse kinematics, joint motors, and PyBullet contact physics.
 - `cart_table_toy_biped_walk.py`: offline cart-table walking experiment that defines a desired ZMP sequence, solves the complete CoM trajectory, and commands the multibody toy biped through inverse kinematics and joint motors.
