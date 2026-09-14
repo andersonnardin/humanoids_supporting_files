@@ -1,4 +1,4 @@
-"""Run the G1 RRT reach with a filtered physical-contact Auto-Balancer.
+"""Run the G1 RRT reach with a CoM-Reference Controller.
 
 The G1 reaches beneath a table while a single rapidly exploring random tree
 searches a 15-dimensional posture vector: one coordinated squat variable,
@@ -11,16 +11,16 @@ The complete RRT stage from the supplied G1 planner is retained: it produces
 a collision-free rough posture trajectory beneath the table. During playback,
 the G1 has a free base and gravity is enabled. Its support comes only from
 physical foot-floor contacts and friction. The robot first holds a quiet
-double-support posture, then a compact Auto-Balancer uses a filtered CoM error
+double-support posture, then a compact CoM-Reference Controller uses a filtered CoM error
 relative to that measured support geometry to adjust ankle, hip, and waist
 targets at every physics step.
 
-This is a teaching approximation of an Auto-Balancer, not a hardware-ready
-second-order whole-body optimizer or a proof of dynamic feasibility.
+This simplified controller is inspired by the Auto-Balancer concept. It is not
+a hardware-ready second-order whole-body optimizer or a proof of dynamic feasibility.
 
 Controls:
     E: pause or resume.
-    T: stop the Auto-Balancer and hold the current joint angles.
+    T: stop the CoM-Reference Controller and hold the current joint angles.
     R: restart the motion.
     Q: quit.
 """
@@ -809,7 +809,7 @@ def print_plan(plan: Plan) -> None:
     print(f"Animation samples: {len(plan.trajectory)}")
     print(f"Final hand-target error: {plan.final_error:.3f} m")
     print("Result: collision-free rough whole-body motion")
-    print("Dynamic test: gravity on, free base, Auto-Balancer active during playback")
+    print("Dynamic test: gravity on, free base, CoM-Reference Controller active during playback")
 
 
 def run(gui: bool = True, seed: int = 6) -> None:
