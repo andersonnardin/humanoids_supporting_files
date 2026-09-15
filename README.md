@@ -17,6 +17,9 @@ LIPM and Cart-Table walking simulations.
 - `auto_balancer_g1_rrt_reach.py`: G1 experiment that
   turns a collision-free RRT reach into gravity-tested playback with a low
   double-support squat and a compact CoM-feedback Auto-Balancer.
+- `g1_attention_point_drawing.py`: standalone G1 attention-point experiment
+  with a mouse-driven right-hand drawing task, inverse-kinematics arm tracking,
+  and a separate filtered CoM-feedback standing controller.
 - `lipm_point_mass_walk.py`: physical point-mass Linear Inverted Pendulum Model experiment.
 - `lipm_toy_biped_walk.py`: multibody toy-biped walking experiment using LIPM foot targets, inverse kinematics, joint motors, and PyBullet contact physics.
 - `cart_table_toy_biped_walk.py`: offline cart-table walking experiment that defines a desired ZMP sequence, solves the complete CoM trajectory, and commands the multibody toy biped through inverse kinematics and joint motors.
