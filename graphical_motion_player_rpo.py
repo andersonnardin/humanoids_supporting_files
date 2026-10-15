@@ -20,7 +20,7 @@ try:
     import pybullet as p
     import pybullet_data
 except ImportError as error:
-    raise SystemExit("Install PyBullet first: python -m pip install pybullet") from error
+    raise SystemExit("Install PyBullet first!") from error
 
 
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
