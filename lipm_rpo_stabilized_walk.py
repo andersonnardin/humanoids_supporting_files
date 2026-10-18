@@ -188,7 +188,7 @@ class MotorSettings:
 class AnkleStabilizerSettings:
     natural_frequency: float = 2.5
     damping_ratio: float = 0.7
-    torque_limit: float = 20.0
+    torque_limit: float = 30.0
 
 
 RPO = RobotModel(SCRIPT_DIRECTORY / "rpo_description" / "urdf" / "rpo.urdf")
@@ -319,7 +319,7 @@ def reset_dynamic_robot(
         for joint, target in zip(leg_indices(indices, side), leg_targets[side]):
             p.resetJointState(robot, joint, float(target), 0.0)
     disable_default_motors(robot)
-    lock_non_walking_joints(robot, indices)
+    # lock_non_walking_joints(robot, indices)
 
 
 def command_leg_postures(
